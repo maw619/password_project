@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}Password Vault{% endblock %}</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #111827;
+      --muted: #cbd5e1;
+      --text: #f8fafc;
+      --accent: #22c55e;
+      --accent-2: #0ea5e9;
+      --border: #334155;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: radial-gradient(circle at top, #1e293b 0%, var(--bg) 45%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .container {
+      width: min(1000px, 92%);
+      margin: 2rem auto;
+    }
+
+    .card {
+      background: color-mix(in oklab, var(--card) 94%, black);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+      padding: 1.5rem;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.6rem;
+      letter-spacing: 0.02em;
+    }
+
+    p { color: var(--muted); }
+
+    .btn {
+      background: linear-gradient(120deg, var(--accent), #16a34a);
+      color: #052e16;
+      border: none;
+      border-radius: 10px;
+      font-weight: 700;
+      padding: 0.6rem 1rem;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn.secondary {
+      background: linear-gradient(120deg, var(--accent-2), #0284c7);
+      color: #082f49;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 10px;
+      margin-top: 0.75rem;
+    }
+
+    th, td {
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #0b1221;
+      color: #e2e8f0;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    tr:hover td {
+      background: rgba(148, 163, 184, 0.08);
+    }
+
+    a { color: #7dd3fc; }
+
+    .empty {
+      color: var(--muted);
+      text-align: center;
+      padding: 1rem;
+    }
+
+    form label {
+      display: block;
+      margin-bottom: 0.3rem;
+      color: #dbeafe;
+      font-weight: 600;
+    }
+
+    form input {
+      width: 100%;
+      margin-bottom: 0.9rem;
+      padding: 0.65rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #020617;
+      color: #e2e8f0;
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>
