@@ -47,6 +47,20 @@
       backdrop-filter: blur(12px);
       margin-bottom: 1rem;
       box-shadow: 0 12px 24px rgba(2, 6, 23, 0.55);
+      gap: 0.75rem;
+    }
+
+    .topbar-actions { margin-left: auto; }
+
+    .link-btn {
+      border: 1px solid rgba(148, 163, 184, 0.24);
+      background: rgba(15, 23, 42, 0.8);
+      color: #cbd5e1;
+      border-radius: 10px;
+      padding: 0.4rem 0.7rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
     }
 
     .app-name {
@@ -192,6 +206,14 @@
     <div class="mobile-topbar">
       <p class="app-name">Password Vault</p>
       <span class="status-dot" aria-hidden="true"></span>
+      {% if user.is_authenticated %}
+      <div class="topbar-actions">
+        <form method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <button class="link-btn" type="submit">Log out</button>
+        </form>
+      </div>
+      {% endif %}
     </div>
     {% block content %}{% endblock %}
   </main>
