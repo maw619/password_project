@@ -1,0 +1,30 @@
+{% extends "core/base.html" %}
+
+{% block title %}Log in{% endblock %}
+
+{% block content %}
+<section class="card" style="max-width: 480px; margin: 0 auto;">
+  <div class="header">
+    <div>
+      <h1>Log in</h1>
+      <p>Sign in to view and manage your saved credentials.</p>
+    </div>
+  </div>
+
+  <form method="post">
+    {% csrf_token %}
+
+    {% if form.errors %}
+      <p class="helper-note" style="color: #fecaca; margin-top: 0;">Invalid username or password. Please try again.</p>
+    {% endif %}
+
+    <label for="id_username">Username</label>
+    {{ form.username }}
+
+    <label for="id_password">Password</label>
+    {{ form.password }}
+
+    <button class="btn" type="submit">Log in</button>
+  </form>
+</section>
+{% endblock %}
