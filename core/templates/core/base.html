@@ -30,7 +30,7 @@
     }
 
     .app-shell {
-      width: min(720px, 100%);
+      width: min(1020px, 100%);
       margin: 0 auto;
       min-height: 100vh;
       padding: 1rem 0.85rem 1.5rem;
@@ -135,29 +135,90 @@
       background: rgba(15, 23, 42, 0.8);
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 0;
-      min-width: 620px;
-    }
+    .table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: rgba(15, 23, 42, 0.8);
+}
 
-    th, td {
-      border-bottom: 1px solid rgba(148, 163, 184, 0.16);
-      padding: 0.78rem;
-      text-align: left;
-      vertical-align: top;
-      font-size: 0.95rem;
-    }
+.password-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0;
+}
 
-    th {
-      color: #cbd5e1;
-      font-size: 0.73rem;
-      text-transform: uppercase;
-      letter-spacing: 0.09em;
-      background: rgba(2, 6, 23, 0.55);
-    }
+.password-table th,
+.password-table td {
+  border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+  padding: 0.78rem;
+  text-align: left;
+  vertical-align: top;
+  font-size: 0.95rem;
+  overflow-wrap: anywhere;
+}
 
+.password-table th {
+  color: #cbd5e1;
+  font-size: 0.73rem;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  background: rgba(2, 6, 23, 0.55);
+}
+
+.password-table code {
+  color: #bbf7d0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 700px) {
+  .table-wrap {
+    border: none;
+    background: transparent;
+    overflow-x: visible;
+  }
+
+  .password-table,
+  .password-table tbody,
+  .password-table tr,
+  .password-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .password-table thead {
+    display: none;
+  }
+
+  .password-table tr {
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 0.75rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .password-table td {
+    border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+    padding: 0.65rem 0;
+  }
+
+  .password-table td:last-child {
+    border-bottom: none;
+  }
+
+  .password-table td::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 0.25rem;
+    color: #94a3b8;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+}
     a { color: #7dd3fc; text-decoration: none; }
     a:hover { text-decoration: underline; }
 
@@ -193,6 +254,26 @@
       margin-bottom: 0.9rem;
     }
 
+    .search-box {
+  margin-bottom: 1rem;
+}
+
+    .search-box input {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.85);
+      color: white;
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    .search-box input:focus {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+    }
+
     @media (max-width: 560px) {
       .app-shell { padding: 0.75rem 0.65rem 1.25rem; }
       .card { border-radius: 20px; padding: 0.85rem; }
@@ -209,7 +290,7 @@
       {% if user.is_authenticated %}
       <div class="topbar-actions">
         <form method="post" action="{% url 'logout' %}">
-          {% csrf_token %}
+          {% csrf_token %} 
           <button class="link-btn" type="submit">Log out</button>
         </form>
       </div>

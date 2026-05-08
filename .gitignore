@@ -34,6 +34,12 @@ staticfiles/
 htmlcov/
 .pytest_cache/
 
+
+
+*.csv
+.env
+
+
 # System Files
 .DS_Store
 Thumbs.db

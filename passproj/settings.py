@@ -12,6 +12,14 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 
+
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+PASSWORD_ENCRYPTION_KEY = os.getenv("PASSWORD_ENCRYPTION_KEY")
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,7 +33,7 @@ SECRET_KEY = 'django-insecure-usd-!u^o#n-wk#-xh-wkp3uqe!1wwa78smy+=fdwdf+jn@+l30
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["bjjrepo", "bjjrepo.com", "www.bjjrepo.com"]
+ALLOWED_HOSTS = ["bjjrepo", "bjjrepo.com", "www.bjjrepo.com",'127.0.0.1']
 
 
 CSRF_TRUSTED_ORIGINS = ["https://bjjrepo.com", "https://www.bjjrepo.com"]
