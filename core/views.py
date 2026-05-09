@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 from .models import Credential
 # views.py
 import csv
@@ -36,6 +36,35 @@ class CredentialCreateView(LoginRequiredMixin, CreateView):
         ).decode()
 
         return super().form_valid(form)
+
+
+class CredentialUpdateView(LoginRequiredMixin, UpdateView):
+    model = Credential
+    fields = ["website_name", "website_url", "username", "password"]
+    template_name = "core/credential_form.html"
+    success_url = reverse_lazy("credential-list")
+
+    def get_queryset(self):
+        return Credential.objects.filter(owner=self.request.user)
+
+    def form_valid(self, form):
+        fernet = Fernet(settings.PASSWORD_ENCRYPTION_KEY.encode())
+        form.instance.password = fernet.encrypt(
+            form.instance.password.encode()
+        ).decode()
+
+        return super().form_valid(form)
+
+
+class CredentialDeleteView(LoginRequiredMixin, DeleteView):
+    model = Credential
+    success_url = reverse_lazy("credential-list")
+
+    def get_queryset(self):
+        return Credential.objects.filter(owner=self.request.user)
+
+    def post(self, request, *args, **kwargs):
+        return self.delete(request, *args, **kwargs)
 
 
 fernet = Fernet(settings.PASSWORD_ENCRYPTION_KEY.encode())
