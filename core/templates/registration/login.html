@@ -3,28 +3,28 @@
 {% block title %}Log in{% endblock %}
 
 {% block content %}
-<section class="card" style="max-width: 480px; margin: 0 auto;">
-  <div class="header">
+<section class="mx-auto max-w-lg rounded-2xl border border-slate-700 bg-slate-900/80 p-6 shadow-xl">
+  <div class="mb-5">
     <div>
-      <h1>Log in</h1>
-      <p>Sign in to view and manage your saved credentials.</p>
+      <h1 class="text-2xl font-semibold">Log in</h1>
+      <p class="mt-1 text-sm text-slate-400">Sign in to view and manage your saved credentials.</p>
     </div>
   </div>
 
-  <form method="post">
+  <form method="post" class="space-y-3">
     {% csrf_token %}
 
     {% if form.errors %}
-      <p class="helper-note" style="color: #fecaca; margin-top: 0;">Invalid username or password. Please try again.</p>
+      <p class="text-sm text-rose-300">Invalid username or password. Please try again.</p>
     {% endif %}
 
-    <label for="id_username">Username</label>
+    <label for="id_username" class="block text-sm font-medium text-slate-200">Username</label>
     {{ form.username }}
 
-    <label for="id_password">Password</label>
+    <label for="id_password" class="block text-sm font-medium text-slate-200">Password</label>
     {{ form.password }}
 
-    <button class="btn" type="submit">Log in</button>
+    <button class="rounded-lg bg-emerald-400 px-4 py-2 text-sm font-semibold text-emerald-950 hover:bg-emerald-300" type="submit">Log in</button>
   </form>
 </section>
 {% endblock %}
