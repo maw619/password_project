@@ -1,0 +1,6 @@
+Watching for file changes with StatReloader
+[10/May/2026 15:16:41] "POST /accounts/login/?next=/ HTTP/1.1" 302 0
+[10/May/2026 15:16:41] "GET / HTTP/1.1" 200 3924
+[10/May/2026 15:16:52] "GET /import-passwords/ HTTP/1.1" 200 2459
+[10/May/2026 15:16:57] "POST /import-passwords/ HTTP/1.1" 302 0
+[10/May/2026 15:16:57] "GET / HTTP/1.1" 200 2603213
