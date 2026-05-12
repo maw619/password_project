@@ -5,10 +5,9 @@ from .models import Credential
 # views.py
 import csv
 import io
-import os
 from cryptography.fernet import Fernet
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required 
+from django.contrib.auth.decorators import login_required
 from django.conf import settings
 
 
@@ -30,8 +29,7 @@ class CredentialCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.owner = self.request.user
 
-        fernet = Fernet(settings.PASSWORD_ENCRYPTION_KEY.encode())
-        form.instance.password = fernet.encrypt(
+        form.instance.password = get_password_fernet().encrypt(
             form.instance.password.encode()
         ).decode()
 
@@ -48,8 +46,7 @@ class CredentialUpdateView(LoginRequiredMixin, UpdateView):
         return Credential.objects.filter(owner=self.request.user)
 
     def form_valid(self, form):
-        fernet = Fernet(settings.PASSWORD_ENCRYPTION_KEY.encode())
-        form.instance.password = fernet.encrypt(
+        form.instance.password = get_password_fernet().encrypt(
             form.instance.password.encode()
         ).decode()
 
@@ -67,7 +64,22 @@ class CredentialDeleteView(LoginRequiredMixin, DeleteView):
         return self.delete(request, *args, **kwargs)
 
 
-fernet = Fernet(settings.PASSWORD_ENCRYPTION_KEY.encode())
+@login_required
+def bulk_delete_credentials(request):
+    if request.method == "POST":
+        credential_ids = request.POST.getlist("selected_credentials")
+        if credential_ids:
+            Credential.objects.filter(
+                owner=request.user,
+                id__in=credential_ids,
+            ).delete()
+
+    return redirect("credential-list")
+
+
+def get_password_fernet():
+    return Fernet(settings.PASSWORD_ENCRYPTION_KEY.encode())
+
 
 @login_required
 def import_chrome_passwords(request):
@@ -91,7 +103,9 @@ def import_chrome_passwords(request):
             if not password:
                 continue
 
-            encrypted_password = fernet.encrypt(password.encode()).decode()
+            encrypted_password = get_password_fernet().encrypt(
+                password.encode()
+            ).decode()
 
             Credential.objects.create(
                 owner=request.user,
@@ -99,7 +113,7 @@ def import_chrome_passwords(request):
                 website_url=url,
                 username=username,
                 password=encrypted_password,
-)
+            )
 
         return redirect("credential-list")
 
